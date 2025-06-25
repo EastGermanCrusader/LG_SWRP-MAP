@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Star Wars Map</title>
   <style>
-    body { margin:0; overflow:hidden; background:black; }
-    canvas { display:block; }
+    body { margin: 0; overflow: hidden; background: black; }
+    canvas { display: block; }
   </style>
 </head>
 <body>
@@ -15,11 +15,10 @@
 
     // Szene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
 
     // Kamera
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 5);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000000);
+    camera.position.set(0, 0, 2);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -32,17 +31,29 @@
 
     // Licht
     const sun = new THREE.DirectionalLight(0xffffff, 2);
-    sun.position.set(90, 10, 15);
+    sun.position.set(300000, 100000, 50000);
     scene.add(sun);
     scene.add(new THREE.AmbientLight(0x404040, 1.5));
 
-    // Kugel
+    // Test-Kugel in der Mitte
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const material = new THREE.MeshStandardMaterial({ color: 0x0077ff });
     const sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
 
-    // Resize-Handler
+    // Skybox: große Kugel mit Galaxie-Textur
+    const textureLoader = new THREE.TextureLoader();
+    const galaxyTexture = textureLoader.load('scene/textures/material_emissive.png');
+
+    const skyGeometry = new THREE.SphereGeometry(500000, 64, 64);
+    const skyMaterial = new THREE.MeshBasicMaterial({
+      map: galaxyTexture,
+      side: THREE.BackSide
+    });
+    const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
+    scene.add(skySphere);
+
+    // Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -50,14 +61,15 @@
     });
 
     // Animation
-    (function animate() {
+    function animate() {
       requestAnimationFrame(animate);
       sphere.rotation.y += 0.01;
       controls.update();
       renderer.render(scene, camera);
-    })();
+    }
+    animate();
   </script>
 
-  <!-- Debug Timestamp: 25.06.2025 17:30 -->
+  <!-- Debug Timestamp: 25.06.2025 18:24 -->
 </body>
 </html>
