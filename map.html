@@ -114,11 +114,11 @@
     const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
     scene.add(skySphere);
 
-    // Texturen
-    const diffuse = textureLoader.load('Planets/coruscant/Coruscant Diffuse.png');
-    const bump = textureLoader.load('Planets/coruscant/Coruscant Bump.png');
-    const emissive = textureLoader.load('Planets/coruscant/Coruscant Lights Metropolis.png');
-    const specular = textureLoader.load('Planets/coruscant/Coruscant Specular.png');
+    // Texturen (angepasste Namen)
+    const diffuse = textureLoader.load('Planets/coruscant/Coruscant-Diffuse.png');
+    const bump = textureLoader.load('Planets/coruscant/Coruscant-Bump.png');
+    const emissive = textureLoader.load('Planets/coruscant/Coruscant-Lights-Metropolis.png');
+    const specular = textureLoader.load('Planets/coruscant/Coruscant-Specular.png');
 
     // ShaderMaterial
     const planetMaterial = new THREE.ShaderMaterial({
@@ -174,9 +174,9 @@
     const planet = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), planetMaterial);
     scene.add(planet);
 
-    // Wolken-Layer
-    const cloudTexture = textureLoader.load('Planets/coruscant/Coruscant (Clouds).png');
-    const cloudBump = textureLoader.load('Planets/coruscant/Coruscant (Clouds Bump).png');
+    // Wolken-Layer (angepasste Namen)
+    const cloudTexture = textureLoader.load('Planets/coruscant/Coruscant-Clouds.png');
+    const cloudBump = textureLoader.load('Planets/coruscant/Coruscant-Clouds-Bump.png');
     const cloudMaterial = new THREE.MeshPhongMaterial({
       map: cloudTexture,
       bumpMap: cloudBump,
@@ -189,8 +189,8 @@
     const cloudSphere = new THREE.Mesh(new THREE.SphereGeometry(1.05, 64, 64), cloudMaterial);
     scene.add(cloudSphere);
 
-    // Rotations-Logik
-    const rotationSpeed = (2 * Math.PI) / 3600 / 60; // 1Tag = 1h, bei 60 FPS
+    // Rotationsgeschwindigkeit: 1 Tag = 1 Stunde bei 60 FPS
+    const rotationSpeed = (2 * Math.PI) / 3600 / 60;
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
